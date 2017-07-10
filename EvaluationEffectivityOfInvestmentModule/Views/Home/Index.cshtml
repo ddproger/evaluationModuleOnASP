@@ -1,0 +1,41 @@
+﻿@using EvaluationOfEffectivenessModul.Services.Models
+
+<div class="jumbotron">
+    <h1>Оценка эффективности инвестиций в информационную безопасность</h1>
+    <p class="lead">
+        <table>
+            <tr>
+                <th>Категория пользователя</th>
+                <th>Цель</th>
+                <th>Время реализации</th>
+                <th>Уровень опасности</th>
+                <th>Ущерб</th>
+                <th>Эффективность рекомендаций</th>
+                <th>Рекомендации</th>
+            </tr>
+            
+
+            @foreach (Intruder intruder in ViewBag.intruders)
+            {
+                <tr>
+                    <td>@intruder.uid</td>
+                    <td>@intruder.purpose.name</td>
+                    <td>@intruder.allertTime</td>
+                    <td>@intruder.hazardLevel</td>
+                    <td>@intruder.damage</td>
+                    <td>@intruder.recomendation</td>
+                    <td>
+                        <select>
+                            @foreach (KeyValuePair<String, float> recomendation in intruder.recomendations)
+                            {
+                                <option>@recomendation.Key</option>
+                            }
+                        </select>
+                    </td>
+                </tr>
+            }
+            </table>
+        </p>
+           
+        </div>
+

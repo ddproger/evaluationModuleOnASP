@@ -43,7 +43,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
                                                                          {"Рекомендация 2",0.2f },
                                                                          {"Рекомендация 3",0.5f },
                                                                      }),
-                new Intruder(Category.trusted, infAssets,784,new Collection<Damage>{
+                new Intruder(Category.untrusted, infAssets,784,new Collection<Damage>{
                                                                      new Damage(0.5f,0.4f,29384),
                                                                      new Damage(0.6f,0.3f,24841),
                                                                      new Damage(0.3f,0.3f,23331) },

@@ -20,19 +20,21 @@ namespace EvaluationOfEffectivenessModul.Services.Models
     public class InformationAssets : NetworkEntity
     {
         public TypeIA type { get; set; }
+        public long cost { get; set; }
         public bool aConfidentiality { get; set; }
         public bool aAvailability { get; set; }
         public bool aAuthenticity { get; set; }
         public bool aIntegrity { get; set; }
         public bool continuity { get; set; }
-        public ICollection<NetworkEntity> networkEntities = new LinkedList<NetworkEntity>();
+
         public InformationAssets(String name):base(TypeEntity.InformationAssets,name)
         {
         }
-        public InformationAssets(TypeIA t, String name, bool aConfidentiality,
+        public InformationAssets(TypeIA t, String name, long cost, bool aConfidentiality,
                                 bool aAvailability, bool aAuthenticity,
                                 bool aIntegrity, bool continuity) : base(TypeEntity.InformationAssets,name)
         {
+            this.cost = cost;
             this.type = t;
             this.aConfidentiality = aConfidentiality;
             this.aAvailability = aAvailability;

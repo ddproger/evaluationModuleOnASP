@@ -15,18 +15,21 @@ namespace EvaluationOfEffectivenessModul.Services.Models
     public class Intruder
     {
         public Category uid { get; set; }
-        public NetworkEntity purpose { get; set; }
         public long allertTime { get; set; }
-        public ICollection<Damage> damages { get; set; }
+        public ICollection<InformationRisk> risk { get; set; }
+
         public IDictionary<String, float> recomendations { get; set; }
         public long damage
         {
             get
             {
                 long damage = 0;
-                foreach (Damage item in damages)
+                foreach (InformationRisk riskItem in risk)
                 {
-                    damage += item.damage;
+                    foreach (Damage item in riskItem.damages)
+                    {
+                        damage += item.damage;
+                    }
                 }
                 return damage;
             }
@@ -36,9 +39,12 @@ namespace EvaluationOfEffectivenessModul.Services.Models
             get
             {
                 float level = 0;
-                foreach (Damage damage in damages)
+                foreach (InformationRisk riskItem in risk)
                 {
-                    level += damage.getWeightedMetric();
+                    foreach (Damage item in riskItem.damages)
+                    {
+                        level += item.getWeightedMetric();
+                    }
                 }
                 return level;
             }
@@ -56,12 +62,11 @@ namespace EvaluationOfEffectivenessModul.Services.Models
             }
         }
         
-        public Intruder(Category uid, NetworkEntity purpose, long allertTime, ICollection<Damage> damages, IDictionary<String, float> recomendations)
+        public Intruder(Category uid, ICollection<InformationRisk> risk, long allertTime, IDictionary<String, float> recomendations)
         {
             this.uid = uid;
-            this.purpose = purpose;
+            this.risk = risk;
             this.allertTime = allertTime;
-            this.damages = damages;
             this.recomendations = recomendations;
         }
     }

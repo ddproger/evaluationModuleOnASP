@@ -5,40 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title – приложение ASP.NET</title>
-    <script src="https://www.google.com/jsapi"></script>
-    <script>
-   google.load("visualization", "1", {packages:["corechart"]});
-   google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var CategoryIntrudersData = google.visualization.arrayToDataTable([
-                ['Категория', 'Количество угроз'],
-                ['trusted', 2],
-                ['user', 0],
-                ['untrusted', 1]
-            ]);
-            var CategoryIntrudersOptions = {
-                title: 'Количество угроз от категорий пользователей',
-                hAxis: { title: 'Категория' },
-                vAxis: { title: 'Количество угроз' }
-            };
-            var CategoryIntrudersChart = new google.visualization.ColumnChart(document.getElementById('CategoryIntrudersChart'));           
-            CategoryIntrudersChart.draw(CategoryIntrudersData, CategoryIntrudersOptions);
-
-            var DamageToAssetsData = google.visualization.arrayToDataTable([
-             ['Инормационный актив', 'Количество атак'],
-             ['infAsset1',     6],
-                ['infAsset2', 3],
-                ['infAsset3',    2],
-            ]);
-                var DamageToAssetsOptions = {
-             title: 'Количество угроз к информационному активу',
-             is3D: true,
-             pieResidueSliceLabel: 'Остальное'
-            };
-                var DamageToAssetsChart = new google.visualization.PieChart(document.getElementById('DamageToAssetsChart'));
-                DamageToAssetsChart.draw(DamageToAssetsData, DamageToAssetsOptions);
-           }
-    </script>
+   
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>

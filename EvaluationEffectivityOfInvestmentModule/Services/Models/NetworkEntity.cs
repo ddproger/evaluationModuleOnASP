@@ -21,21 +21,21 @@ namespace EvaluationOfEffectivenessModul.Services.Models
         }
         public TypeEntity type { get; set; }
         public String name { get; set; }
-        public IDictionary<NetworkEntity, TypeOfBind> networkEntity;
+        public IDictionary<NetworkEntity, TypeOfBind> networkEntities;
         public NetworkEntity(TypeEntity type, String name)
         {
             this.name = name;
             this.type = type;
-            networkEntity = new Dictionary<NetworkEntity, TypeOfBind>();
+            networkEntities = new Dictionary<NetworkEntity, TypeOfBind>();
         }
         public NetworkEntity(IDictionary<NetworkEntity, TypeOfBind> networkEntity, TypeEntity type)
         {
             this.type = type;
-            this.networkEntity = networkEntity;
+            this.networkEntities = networkEntity;
         }
         public void addBind(TypeOfBind type, NetworkEntity entity)
         {
-            networkEntity.Add(entity,type);
+            networkEntities.Add(entity,type);
         }
     }
 }

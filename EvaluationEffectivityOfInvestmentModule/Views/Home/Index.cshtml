@@ -6,7 +6,7 @@
         <table>
             <tr>
                 <th>Категория пользователя</th>
-                <th>Цель</th>
+                <th>Цели</th>
                 <th>Время реализации</th>
                 <th>Уровень опасности</th>
                 <th>Ущерб</th>
@@ -19,7 +19,14 @@
             {
                 <tr>
                     <td>@intruder.uid</td>
-                    <td>@intruder.purpose.name</td>
+                    <td>
+                        <select>
+                            @foreach (InformationRisk risk in intruder.risk)
+                            {
+                                <option>@risk.name</option>
+                            }
+                        </select>
+                    </td>
                     <td>@intruder.allertTime</td>
                     <td>@intruder.hazardLevel</td>
                     <td>@intruder.damage</td>
@@ -37,7 +44,55 @@
             </table>
         <div id="DamageToAssetsChart" style="width: 500px; height: 400px;"></div>
         <div id="CategoryIntrudersChart" style="width: 800px; height: 400px;"></div>
+        <div id="InformationActiveInvestments" style="width: 800px; height: 400px;"></div>
+        
+        <script src="https://www.google.com/jsapi"></script>
+        <script>
 
+   google.load("visualization", "1", {packages:["corechart"]});
+   google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var CategoryIntrudersData = google.visualization.arrayToDataTable([
+                ['Категория пользователя', 'Количество угроз'],
+                @foreach (KeyValuePair<String,int> item in ViewBag.categories)
+                {<text>['@item.Key', @item.Value],</text>
+                }]);
+            var CategoryIntrudersOptions = {
+                title: 'Количество угроз от категорий пользователей',
+                hAxis: { title: 'Категория' },
+                vAxis: { title: 'Количество угроз' }
+            };
+               var CategoryIntrudersChart = new google.visualization.ColumnChart(document.getElementById('CategoryIntrudersChart'));
+                    CategoryIntrudersChart.draw(CategoryIntrudersData, CategoryIntrudersOptions);
+               var DamageToAssetsData = google.visualization.arrayToDataTable([
+                ['Информационный актив', 'Количество атак'],
+                @foreach (KeyValuePair<String,int> item in ViewBag.risks)
+                {<text>['@item.Key', @item.Value],</text>
+                }]);
+
+                var DamageToAssetsOptions = {
+             title: 'Количество угроз к информационному активу',
+             is3D: true,
+             pieResidueSliceLabel: 'Остальное'
+            };
+                    var DamageToAssetsChart = new google.visualization.PieChart(document.getElementById('DamageToAssetsChart'));
+                    DamageToAssetsChart.draw(DamageToAssetsData, DamageToAssetsOptions);
+
+            var InformationActiveInvestmentsData = google.visualization.arrayToDataTable([
+                ['Информационный актив', 'Стоимость', 'Затраты'],
+                @foreach (KeyValuePair<InformationAssets,long> item in ViewBag.infActivsInvestments)
+                {<text>['@item.Key.name',@item.Key.cost, @item.Value],</text>
+                }]);
+
+            var InformationActiveInvestmentsOptions = {
+             title: 'Стоимость и инвестиции в информационные активы',
+             hAxis: { title: 'Информационный актив' },
+             vAxis: { title: 'Стоимость/Затраты' }
+            };
+            var InformationActiveInvestmentsChart = new google.visualization.ColumnChart(document.getElementById('InformationActiveInvestments'));
+                InformationActiveInvestmentsChart.draw(InformationActiveInvestmentsData, InformationActiveInvestmentsOptions);
+           }
+        </script>
         </p>
            
         </div>

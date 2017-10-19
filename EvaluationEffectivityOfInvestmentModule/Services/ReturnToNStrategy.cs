@@ -5,14 +5,15 @@ using System.Web;
 
 namespace EvaluationEffectivityOfInvestmentModule.Services
 {
-    public class ReturnToNStrategy : AbstractStratagy
+    public class ReturnToNStrategy : AbstractStrategy
     {
+        
 
-    double p0=0d;
+        double p0=0d;
     private int n;
-    private double C;
+    private long C;
     private int L;
-    private double Vp;
+    private long Vp;
     private double Tsh;
     private double Trsh;
     private int s;
@@ -23,7 +24,10 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     private double Wnorm;
     private double Weff;
     private double B;
-    public ReturnToNStrategy(Technology technology, double p0, double c, int l, double Vp, double Tsh, double Trsh, int s, int r, int m, int sigma, double B)
+        public ReturnToNStrategy(Technology tech):this(tech,def_p0,def_C,def_L,def_Vp,def_Tsh,def_Trsh,def_s,def_r,def_M,def_sigma,def_B)
+        {
+        }
+    public ReturnToNStrategy(Technology technology, double p0, long c, int l, long Vp, double Tsh, double Trsh, int s, int r, int m, int sigma, double B)
     {
         this.p0 = p0;
         this.n = technology.getN();

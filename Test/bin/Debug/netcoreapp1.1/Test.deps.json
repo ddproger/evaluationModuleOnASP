@@ -1,0 +1,56 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v1.1",
+    "signature": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v1.1": {
+      "test/1.0.0": {
+        "dependencies": {
+          "EvaluationEffectivityOfInvestmentModule": "1.0.0"
+        },
+        "runtime": {
+          "Test.dll": {}
+        }
+      },
+      "evaluationeffectivityofinvestmentmodule/1.0.0": {
+        "runtime": {
+          "EvaluationEffectivityOfInvestmentModule.dll": {}
+        },
+        "resources": {
+          "ru/System.Web.Optimization.resources.dll": {
+            "locale": "ru"
+          },
+          "ru/System.Web.Mvc.resources.dll": {
+            "locale": "ru"
+          },
+          "ru/System.Web.Razor.resources.dll": {
+            "locale": "ru"
+          },
+          "ru/System.Web.WebPages.Razor.resources.dll": {
+            "locale": "ru"
+          },
+          "ru/System.Web.WebPages.resources.dll": {
+            "locale": "ru"
+          },
+          "ru/System.Web.WebPages.Deployment.resources.dll": {
+            "locale": "ru"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "test/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "evaluationeffectivityofinvestmentmodule/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -291,6 +291,6 @@ C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\
 C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\bin\ru\System.Web.WebPages.resources.dll
 C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\bin\ru\System.Web.WebPages.Deployment.resources.dll
 C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\bin\ru\System.Web.WebPages.Razor.resources.dll
-C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\obj\Debug\EvaluationEffectivityOfInvestmentModule.csprojResolveAssemblyReference.cache
 C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\obj\Debug\EvaluationEffectivityOfInvestmentModule.dll
 C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\obj\Debug\EvaluationEffectivityOfInvestmentModule.pdb
+C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\EvaluationEffectivityOfInvestmentModule\obj\Debug\EvaluationEffectivityOfInvestmentModule.csprojResolveAssemblyReference.cache

@@ -1,0 +1,28 @@
+﻿@using EvaluationOfEffectivenessModul.Services.Models
+
+<div class="jumbotron">
+    <h1>Оценка эффективности передачи данных</h1>
+        
+    <form href="/Network" method="get">
+        <label for="p0">p0</label><input type="text" name="p0" value="@ViewBag.p0"><br />
+        <label for="C">C</label><input type="text" name="C"  value="@ViewBag.C"><br />
+        <label for="L">L</label><input type="text" name="L"  value="@ViewBag.L"><br />
+        <label for="Vp">Vp</label><input type="text" name="Vp"  value="@ViewBag.Vp"><br />
+        <label for="Tsh">Tsh</label><input type="text" name="Tsh"  value="@ViewBag.Tsh"><br />
+        <label for="Trsh">Trsh</label><input type="text" name="Trsh"  value="@ViewBag.Trsh"><br />
+        <label for="s">s</label><input type="text" name="s"  value="@ViewBag.s"><br />
+        <label for="r">r</label><input type="text" name="r"  value="@ViewBag.r"><br />
+        <label for="m">m</label><input type="text" name="m"  value="@ViewBag.m"><br />
+        <label for="sigma">sigma</label><input type="text" name="sigma"  value="@ViewBag.sigma"><br />
+        <label for="B">B</label><input type="text" name="B"  value="@String.Format("{0:n10}",ViewBag.B)"><br />
+
+        <input name="calculate" type="submit"/>
+    </form>
+    @if (ViewBag.value != null)
+    {
+    <p class="lead">
+        Результат вычислений = @ViewBag.value
+    </p>
+    }
+        </div>
+

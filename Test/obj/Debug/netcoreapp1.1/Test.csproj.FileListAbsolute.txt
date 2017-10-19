@@ -1,0 +1,5 @@
+C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\Test\bin\Debug\netcoreapp1.1\Test.deps.json
+C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\Test\bin\Debug\netcoreapp1.1\Test.runtimeconfig.json
+C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\Test\bin\Debug\netcoreapp1.1\Test.runtimeconfig.dev.json
+C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\Test\obj\Debug\netcoreapp1.1\Test.csprojResolveAssemblyReference.cache
+C:\Users\gerasymiuk\Documents\Visual Studio 2017\Projects\evaluationModuleOnASP\Test\obj\Debug\netcoreapp1.1\Test.AssemblyInfo.cs

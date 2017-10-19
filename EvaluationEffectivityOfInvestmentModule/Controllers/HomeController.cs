@@ -1,4 +1,5 @@
 ﻿using EvaluationEffectivityOfInvestmentModule.Models;
+using EvaluationEffectivityOfInvestmentModule.Services;
 using EvaluationOfEffectivenessModul.Services.Models;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             ViewBag.infActivsInvestments = infActivsInvestments;
             return View();
         }
+        
         /// <summary>
         /// Need correct this method. Use externals API
         /// </summary>

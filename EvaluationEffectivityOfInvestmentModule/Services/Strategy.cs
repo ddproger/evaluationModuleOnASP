@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace EvaluationEffectivityOfInvestmentModule.Services
 {
-    interface Strategy
-    {
+    public interface Strategy
+    {        
         int getN();
         double getT();
         double getB();

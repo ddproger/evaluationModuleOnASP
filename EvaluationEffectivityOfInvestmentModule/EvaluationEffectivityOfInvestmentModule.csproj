@@ -166,6 +166,7 @@
     <Compile Include="Services\Models\Investment.cs" />
     <Compile Include="Services\Models\NetworkEntity.cs" />
     <Compile Include="Services\Models\NetworkObject.cs" />
+    <Compile Include="Services\SlidingWindowStrategy.cs" />
     <Compile Include="Services\ReturnToNStrategy.cs" />
     <Compile Include="Services\SpecialFunction.cs" />
     <Compile Include="Services\Strategies.cs" />

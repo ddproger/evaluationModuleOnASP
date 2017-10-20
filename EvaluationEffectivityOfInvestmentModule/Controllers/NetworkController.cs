@@ -26,20 +26,13 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             string str_B = Request.QueryString["B"];
 
             double p0, Tsh, Trsh, B;
-            int L, s, r, m, sigma,int_technology, int_strategy;
+            int L, s, r, m, sigma,int_technology=1, int_strategy=1;
             long Vp;
             Technology technology;
             Strategy strategy;
 
 
-            if (str_technology == null || str_technology.Equals("") || !int.TryParse(str_technology, out int_technology))
-            {
-                technology = Technologies.newFastEthernet();
-            }
-            else
-            {
-                technology = Technologies.newTechnology((AvailableTechnologies)int_technology);
-            }
+
             
             if (str_p0 == null || str_p0.Equals("")||!double.TryParse(str_p0,out p0))
             {
@@ -92,7 +85,8 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             ViewBag.m = m;
             ViewBag.sigma = sigma;
             ViewBag.B = B;
-            
+            ;
+
             ViewBag.technologies = Enum.GetValues(typeof(AvailableTechnologies))
                                     .Cast<AvailableTechnologies>().ToDictionary(t=>(int)(object)t,t=>t.ToString());
             ViewBag.strategies = Enum.GetValues(typeof(AvailableStrategies))
@@ -100,16 +94,26 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
 
             if (Request.QueryString["calculate"] == null) return View();
             //AbstractStrategy strategy = new ReturnToNStrategy(technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
+            if (str_technology == null || str_technology.Equals("") || !int.TryParse(str_technology, out int_technology))
+            {
+                technology = Technologies.newFastEthernet();
+            }
+            else
+            {
+                technology = Technologies.newTechnology((AvailableTechnologies)int_technology);
+            }
             if (str_strategy == null || str_strategy.Equals("") || !int.TryParse(str_strategy, out int_strategy))
             {
                 strategy = Strategies.newReturnToNStrategies(technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
             }
             else
             {
-                strategy = Strategies.newReturnToNStrategies(technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
+                strategy = Strategies.newStrategies((AvailableStrategies)int_strategy, technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
             }
+            ViewBag.selectedTechnology = int_technology;
+            ViewBag.selectedStrategy = int_strategy;
             ViewBag.value = getValue(strategy);
-            
+            ViewBag.message = "T="+strategy.getT()+" P="+strategy.getP();
             return View();
         }
         

@@ -19,7 +19,6 @@
             }    
         </select><br />
         <label for="p0">p0</label><input type="text" name="p0" value="@ViewBag.p0"><br />
-        <label for="C">C</label><input type="text" name="C"  value="@ViewBag.C"><br />
         <label for="L">L</label><input type="text" name="L"  value="@ViewBag.L"><br />
         <label for="Vp">Vp</label><input type="text" name="Vp"  value="@ViewBag.Vp"><br />
         <label for="Tsh">Tsh</label><input type="text" name="Tsh"  value="@ViewBag.Tsh"><br />
@@ -35,7 +34,7 @@
     @if (ViewBag.value != null)
     {
     <p class="lead">
-        Результат вычислений = @ViewBag.value
+        Результат вычислений = @String.Format("{0:n10}", ViewBag.value)
     </p>
         @ViewBag.message
     }

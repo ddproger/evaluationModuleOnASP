@@ -5,6 +5,7 @@ using System.Web;
 
 namespace EvaluationEffectivityOfInvestmentModule.Services
 {
+    
     public class Technologies
     {
         private Technologies() { }

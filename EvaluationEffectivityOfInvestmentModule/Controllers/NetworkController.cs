@@ -13,7 +13,8 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
         public ActionResult Index()
         {
             Technology technology = Technologies.newFastEthernet();
-           
+
+            string str_technology = Request.QueryString["technology"];
             string str_p0= Request.QueryString["p0"];
             string str_C = Request.QueryString["C"];
             string str_L = Request.QueryString["L"];
@@ -25,6 +26,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             string str_m = Request.QueryString["m"];
             string str_sigma = Request.QueryString["sigma"];
             string str_B = Request.QueryString["B"];
+
             double p0, Tsh, Trsh, B;
             int L, s, r, m, sigma;
             long C, Vp;
@@ -85,9 +87,24 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             ViewBag.m = m;
             ViewBag.sigma = sigma;
             ViewBag.B = B;
+            Dictionary<AvailableTechnologies, string> technologies = new Dictionary<AvailableTechnologies, string>();
+            technologies.Add(AvailableTechnologies.Ethernet, AvailableTechnologies.Ethernet.ToString());
+            technologies.Add(AvailableTechnologies.FastEthernet, AvailableTechnologies.FastEthernet.ToString());
+            technologies.Add(AvailableTechnologies.GigabytEthernet, AvailableTechnologies.GigabytEthernet.ToString());
+            technologies.Add(AvailableTechnologies.TenGbEthernet, AvailableTechnologies.TenGbEthernet.ToString());
+            technologies.Add(AvailableTechnologies._40_100_GbEthernet, AvailableTechnologies._40_100_GbEthernet.ToString());
+            Dictionary<AvailableStrategies, string> strategies = new Dictionary<AvailableStrategies, string>();
+            strategies.Add(AvailableStrategies.ReturnToN, AvailableStrategies.ReturnToN.ToString());
+            strategies.Add(AvailableStrategies.SlidingWindow, AvailableStrategies.SlidingWindow.ToString());
+
+
+            ViewBag.technologies = technologies;
+            ViewBag.strategies = strategies;
+
             if (Request.QueryString["calculate"] == null) return View();
             AbstractStrategy strategy = new ReturnToNStrategy(technology, p0, C, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
             ViewBag.value = getValue(strategy);
+            
             return View();
         }
         

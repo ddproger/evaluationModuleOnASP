@@ -149,6 +149,8 @@
     <Compile Include="Models\DictionaryWithJsonToString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AbstractStrategy.cs" />
+    <Compile Include="Services\AvailableStrategies.cs" />
+    <Compile Include="Services\EvailableTechnologies.cs" />
     <Compile Include="Services\EvaluationClass.cs" />
     <Compile Include="Services\implTechnology.cs" />
     <Compile Include="Services\MainFormServices.cs" />

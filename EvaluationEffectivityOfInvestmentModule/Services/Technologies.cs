@@ -35,7 +35,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
         }
         public static Technology newFastEthernet()
         {
-            return new ImplTechnology(1024, 0.95, 100000000L, 0.006, 2, 3, 432, 0.3750);
+            return new ImplTechnology(1518, 0.95, 100000000L, 0.006, 2, 3, 432, 0.3750);
 
         }
         public static Technology newGigabytEthernet()

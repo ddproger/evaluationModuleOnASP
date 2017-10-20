@@ -8,9 +8,8 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     public abstract class AbstractStrategy : Strategy
     {
         public static double def_p0 = 0.01;
-        public static long def_C = 56000;
         public static int def_L = 1000000;
-        public static long def_Vp = 300000000;
+        public static long def_Vp = 3000000000;
         public static double def_Tsh = 0.01;
         public static double def_Trsh = 0.01;
         public static int def_s = 32;

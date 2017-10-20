@@ -52,7 +52,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     {
         double result;
         //System.out.printf("T=%.10f\n",(getSum()*(1-1/Math.pow(2,r)*(0.5-F((r+1-M)/sigma)))));
-        result = n / C + L / Vp + Tsh + Trsh + ((getSum() * (1 - 1 / Math.Pow(2, r) * (0.5 - F((r + 1 - M) / sigma)))) / (1 - getSum())) * ((n + s) / C + 2 * L / Vp);
+        result = n / C + L*1.0 / Vp + Tsh + Trsh + ((getSum() * (1 - 1 / Math.Pow(2, r) * (0.5 - F((r + 1 - M) / sigma)))) / (1 - getSum())) * ((n + s) / C + 2 * L*1.0 / Vp);
         return result;
     }
 

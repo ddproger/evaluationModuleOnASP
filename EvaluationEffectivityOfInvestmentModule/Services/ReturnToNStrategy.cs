@@ -24,16 +24,16 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     private double Wnorm;
     private double Weff;
     private double B;
-        public ReturnToNStrategy(Technology tech):this(tech,def_p0,def_C,def_L,def_Vp,def_Tsh,def_Trsh,def_s,def_r,def_M,def_sigma,def_B)
+        public ReturnToNStrategy(Technology tech):this(tech,def_p0,def_L,def_Vp,def_Tsh,def_Trsh,def_s,def_r,def_M,def_sigma,def_B)
         {
         }
-    public ReturnToNStrategy(Technology technology, double p0, long c, int l, long Vp, double Tsh, double Trsh, int s, int r, int m, int sigma, double B)
+    public ReturnToNStrategy(Technology technology, double p0, int l, long Vp, double Tsh, double Trsh, int s, int r, int m, int sigma, double B)
     {
         this.p0 = p0;
         this.n = technology.getN();
         this.Wnorm = technology.getWnorm();
         this.Weff = technology.getWeff();
-        this.C = c;
+        this.C = technology.getC();
         this.L = l;
         this.Vp = Vp;
         this.Tsh = Tsh;

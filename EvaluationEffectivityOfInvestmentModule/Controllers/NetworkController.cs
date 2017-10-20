@@ -11,12 +11,10 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
     {
         // GET: Network
         public ActionResult Index()
-        {
-            Technology technology = Technologies.newFastEthernet();
-
+        {     
             string str_technology = Request.QueryString["technology"];
+            string str_strategy = Request.QueryString["strategy"];
             string str_p0= Request.QueryString["p0"];
-            string str_C = Request.QueryString["C"];
             string str_L = Request.QueryString["L"];
             string str_Vp = Request.QueryString["Vp"];
             string str_Tsh = Request.QueryString["Tsh"];
@@ -28,9 +26,21 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             string str_B = Request.QueryString["B"];
 
             double p0, Tsh, Trsh, B;
-            int L, s, r, m, sigma;
-            long C, Vp;
+            int L, s, r, m, sigma,int_technology, int_strategy;
+            long Vp;
+            Technology technology;
+            Strategy strategy;
 
+
+            if (str_technology == null || str_technology.Equals("") || !int.TryParse(str_technology, out int_technology))
+            {
+                technology = Technologies.newFastEthernet();
+            }
+            else
+            {
+                technology = Technologies.newTechnology((AvailableTechnologies)int_technology);
+            }
+            
             if (str_p0 == null || str_p0.Equals("")||!double.TryParse(str_p0,out p0))
             {
                 p0 = AbstractStrategy.def_p0;
@@ -46,10 +56,6 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             if (str_B == null || str_B.Equals("") || !double.TryParse(str_B, out B))
             {
                 B = AbstractStrategy.def_B;
-            }
-            if (str_C == null || str_C.Equals("") || !long.TryParse(str_C, out C))
-            {
-                C = AbstractStrategy.def_C;
             }
             if (str_Vp == null || str_Vp.Equals("") || !long.TryParse(str_Vp, out Vp))
             {
@@ -77,7 +83,6 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             }
             
             ViewBag.p0 = p0;
-            ViewBag.C = C;
             ViewBag.L = L;
             ViewBag.Vp = Vp;
             ViewBag.Tsh = Tsh;
@@ -87,22 +92,22 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             ViewBag.m = m;
             ViewBag.sigma = sigma;
             ViewBag.B = B;
-            Dictionary<AvailableTechnologies, string> technologies = new Dictionary<AvailableTechnologies, string>();
-            technologies.Add(AvailableTechnologies.Ethernet, AvailableTechnologies.Ethernet.ToString());
-            technologies.Add(AvailableTechnologies.FastEthernet, AvailableTechnologies.FastEthernet.ToString());
-            technologies.Add(AvailableTechnologies.GigabytEthernet, AvailableTechnologies.GigabytEthernet.ToString());
-            technologies.Add(AvailableTechnologies.TenGbEthernet, AvailableTechnologies.TenGbEthernet.ToString());
-            technologies.Add(AvailableTechnologies._40_100_GbEthernet, AvailableTechnologies._40_100_GbEthernet.ToString());
-            Dictionary<AvailableStrategies, string> strategies = new Dictionary<AvailableStrategies, string>();
-            strategies.Add(AvailableStrategies.ReturnToN, AvailableStrategies.ReturnToN.ToString());
-            strategies.Add(AvailableStrategies.SlidingWindow, AvailableStrategies.SlidingWindow.ToString());
-
-
-            ViewBag.technologies = technologies;
-            ViewBag.strategies = strategies;
+            
+            ViewBag.technologies = Enum.GetValues(typeof(AvailableTechnologies))
+                                    .Cast<AvailableTechnologies>().ToDictionary(t=>(int)(object)t,t=>t.ToString());
+            ViewBag.strategies = Enum.GetValues(typeof(AvailableStrategies))
+                                    .Cast<AvailableStrategies>().ToDictionary(t => (int)(object)t, t => t.ToString());
 
             if (Request.QueryString["calculate"] == null) return View();
-            AbstractStrategy strategy = new ReturnToNStrategy(technology, p0, C, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
+            //AbstractStrategy strategy = new ReturnToNStrategy(technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
+            if (str_strategy == null || str_strategy.Equals("") || !int.TryParse(str_strategy, out int_strategy))
+            {
+                strategy = Strategies.newReturnToNStrategies(technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
+            }
+            else
+            {
+                strategy = Strategies.newReturnToNStrategies(technology, p0, L, Vp, Tsh, Trsh, s, r, m, sigma, B);
+            }
             ViewBag.value = getValue(strategy);
             
             return View();

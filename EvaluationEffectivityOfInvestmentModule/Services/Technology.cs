@@ -10,6 +10,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     {
         int getN();
         double getP();
+        long getC();
         double getT();
         int getV();
         int getCapacity();

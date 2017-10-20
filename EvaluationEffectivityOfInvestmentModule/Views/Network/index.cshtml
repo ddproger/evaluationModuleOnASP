@@ -6,16 +6,16 @@
     <form href="/Network" method="get">
         <label for="technology">technology</label>
         <select name="technology">
-            @foreach (KeyValuePair<AvailableTechnologies, string> item in ViewBag.technologies)
+            @foreach (KeyValuePair<int, string> item in ViewBag.technologies)
             {
                 <option value="@item.Key">@item.Value</option>
             }            
         </select><br />
         <label for="strategy">strategy</label>
         <select name="strategy">
-            @foreach (KeyValuePair<AvailableStrategies, string> item in ViewBag.strategies)
+            @foreach (KeyValuePair<int, string> item in ViewBag.strategies)
             {
-                <option>@item.Value</option>
+                <option value="@item.Key">@item.Value</option>
             }    
         </select><br />
         <label for="p0">p0</label><input type="text" name="p0" value="@ViewBag.p0"><br />

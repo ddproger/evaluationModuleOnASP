@@ -149,8 +149,6 @@
     <Compile Include="Models\DictionaryWithJsonToString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AbstractStrategy.cs" />
-    <Compile Include="Services\AvailableStrategies.cs" />
-    <Compile Include="Services\EvailableTechnologies.cs" />
     <Compile Include="Services\EvaluationClass.cs" />
     <Compile Include="Services\implTechnology.cs" />
     <Compile Include="Services\MainFormServices.cs" />
@@ -170,6 +168,7 @@
     <Compile Include="Services\Models\NetworkObject.cs" />
     <Compile Include="Services\ReturnToNStrategy.cs" />
     <Compile Include="Services\SpecialFunction.cs" />
+    <Compile Include="Services\Strategies.cs" />
     <Compile Include="Services\Strategy.cs" />
     <Compile Include="Services\Technologies.cs" />
     <Compile Include="Services\Technology.cs" />

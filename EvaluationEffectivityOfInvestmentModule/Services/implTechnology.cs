@@ -9,10 +9,12 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     {
     int n,v,capacity;
     double p,t,Weff,Wnorm;
-    public ImplTechnology(int n, double p, double t, int v, int capacity, double weff, double wnorm)
+        long c;
+    public ImplTechnology(int n, double p,long c, double t, int v, int capacity, double weff, double wnorm)
     {
         this.n = n;
         this.p = p;
+            this.c = c;
         this.t = t;
         this.v = v;
         this.capacity = capacity;
@@ -58,6 +60,11 @@ namespace EvaluationEffectivityOfInvestmentModule.Services
     {
         return Wnorm;
     }
-}
+
+        public long getC()
+        {
+            return c;
+        }
+    }
 
 }

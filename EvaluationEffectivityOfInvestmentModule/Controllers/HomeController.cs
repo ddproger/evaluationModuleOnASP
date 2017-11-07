@@ -20,7 +20,21 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             System.Collections.Generic.Dictionary<String, int> informationRisks = new Dictionary<string, int>();
             System.Collections.Generic.Dictionary<InformationAssets, long> infActivsInvestments = new Dictionary<InformationAssets, long>();
 
-            
+
+            addDate(intruders,category, informationRisks, infActivsInvestments);
+
+            ViewBag.intruders = intruders;
+            ViewBag.categories = category;
+            ViewBag.risks = informationRisks;
+            ViewBag.infActivsInvestments = infActivsInvestments;
+            return View();
+        }
+        private void addAnalyticDate(Collection<Intruder> intruders)
+        {
+
+        }
+        private void addDate(Collection<Intruder> intruders, Dictionary<string, int> category, Dictionary<string, int> informationRisks, Dictionary<InformationAssets, long> infActivsInvestments)
+        {
             foreach (Intruder item in intruders)
             {
                 if (category.ContainsKey(item.uid.ToString()))
@@ -54,14 +68,8 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
                     }
                 }
             }
-
-            ViewBag.intruders = intruders;
-            ViewBag.categories = category;
-            ViewBag.risks = informationRisks;
-            ViewBag.infActivsInvestments = infActivsInvestments;
-            return View();
         }
-        
+
         /// <summary>
         /// Need correct this method. Use externals API
         /// </summary>

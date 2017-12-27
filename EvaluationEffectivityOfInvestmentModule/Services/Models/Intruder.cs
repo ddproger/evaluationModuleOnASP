@@ -19,36 +19,7 @@ namespace EvaluationOfEffectivenessModul.Services.Models
         public ICollection<InformationRisk> risk { get; set; }
 
         public IDictionary<String, float> recomendations { get; set; }
-        public long damage
-        {
-            get
-            {
-                long damage = 0;
-                foreach (InformationRisk riskItem in risk)
-                {
-                    foreach (Damage item in riskItem.damages)
-                    {
-                        damage += item.damage;
-                    }
-                }
-                return damage;
-            }
-        }
-        public float hazardLevel
-        {
-            get
-            {
-                float level = 0;
-                foreach (InformationRisk riskItem in risk)
-                {
-                    foreach (Damage item in riskItem.damages)
-                    {
-                        level += item.getWeightedMetric();
-                    }
-                }
-                return level;
-            }
-        }
+        
         public float recomendation
         {
             get

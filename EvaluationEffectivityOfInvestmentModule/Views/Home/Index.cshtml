@@ -2,143 +2,51 @@
 
 <div class="jumbotron">
     <h1>Оценка эффективности инвестиций в информационную безопасность</h1>
-   
+    <form id="myForm" href="/Home" method="get">
         <table>
             <tr>
-                <th>Категория пользователя</th>
-                <th>Цели</th>
-                <th>Время реализации</th>
-                <th>Уровень опасности</th>
-                <th>Ущерб</th>
-                <th>Эффективность рекомендаций</th>
-                <th>Рекомендации</th>
+                <th>Актив</th>
+                <th>Стоимость в процентах</th>
             </tr>
 
 
-            @foreach (Intruder intruder in ViewBag.intruders)
+            @foreach (InformationAssets asset in ViewBag.assets)
             {
-            <tr>
-                <td>@intruder.uid</td>
-                <td>
-                    <select>
-                        @foreach (InformationRisk risk in intruder.risk)
-                        {
-                        <option>@risk.name</option>
-                        }
-                    </select>
-                </td>
-                <td>@intruder.allertTime</td>
-                <td>@intruder.hazardLevel</td>
-                <td>@intruder.damage</td>
-                <td>@intruder.recomendation</td>
-                <td>
-                    <select>
-                        @foreach (KeyValuePair<String, float> recomendation in intruder.recomendations)
-                        {
-                        <option>@recomendation.Key</option>
-                        }
-                    </select>
-                </td>
-            </tr>
+                <tr>
+                    <td>@asset.name</td>
+                    <td><input type="number" name="cost_@asset.type" value="@Request.QueryString["cost_"+asset.type]" min="1" max="100"></td>
+                </tr>
             }
         </table>
-        <form id="myForm" href="/Home" method="get">
-            <label for="e">Ожидаемый экономический эффект</label><input type="text" name="e" value="@ViewBag.e"><br />
-            <label for="r">Ставка дисконтирования</label><input type="text" name="r" value="@ViewBag.r"><br />
-            <label for="">Потери в периоды</label>
-            <p>
-                <label id="periodLabelPrototype">1 период </label>
-                <input id="peiodInputPrototype" name="period[]" type="text"/>
-            </p>
-            <div id="periods">
+        <label for="profit">Доход</label><input type="text" name="profit" value="@Request.QueryString["profit"]"><br />
+        <label for="investments">Стоимость активов(процент от дохода)</label><input type="number" name="investments" value="@Request.QueryString["investments"]" min="1" max="100"><br />
+        <label for="remedies">Стоимость средств защиты(процент от стоимости активов)</label><input type="number" name="remedies" value="@Request.QueryString["remedies"]" min="1" max="100"><br />
+        <label for="r">Ставка дисконтирования</label><input type="number" name="r" value="@Request.QueryString["r"]" min="1" max="100"><br />
 
-            </div>
-        <input type="button" id="addPeriod" value="Добавить период" /><br />
-
-            <label for="sum">Ожидаемая прибыль</label><input type="text" name="sum" value="@ViewBag.sum"><br />
-            <label for="p">Вероятность успеха внедрения</label><input type="text" name="p" value="@ViewBag.p"><br />
 
         <input name="calculate" type="submit" />
-        </form>
-        </div>
-            
-        <div id="DamageToAssetsChart" style="width: 500px; height: 400px;"></div>
-        <div id="CategoryIntrudersChart" style="width: 800px; height: 400px;"></div>
-        <div id="InformationActiveInvestments" style="width: 800px; height: 400px;"></div>
-        <h1>@ViewBag.value</h1>
-        <script src="https://www.google.com/jsapi"></script>
-        <script>
-            function addFields() {
-                var p = d.createElement('p'),
-                    cloneLabel = label.cloneNode(),
-                    cloneField = field.cloneNode();
-                ++count;
-                cloneField.localName = 'period' + count;
-                cloneLabel.textContent = count + ' период ';
-                
-                cloneField.value = '';
-                p.appendChild(cloneLabel);
-                p.appendChild(cloneField);
-                newFields.appendChild(p);
-                return false;
+    </form>
+    @if ("Отправить".Equals(@Request.QueryString["calculate"]))
+    {
+        <table>
+            <tr>
+                <th>Актив</th>
+                <th>Стоимость в процентах</th>
+                <th>Стоимость в грн</th>
+                <th>Затраты на разроботку СЗИ</th>
+            </tr>
+
+            @foreach (InformationAssets asset in ViewBag.assets)
+            {
+                <tr>
+                    <td>@asset.name</td>
+                    <td>@Request.QueryString["cost_" + asset.type]</td>
+                    <td>@asset.cost</td>
+                    <td>@asset.investment</td>
+                </tr>
             }
-            var d = document,
-                myForm = d.getElementById('myForm'),
-                newFields = myForm.querySelector('#periods'),
-                label = d.getElementById('periodLabelPrototype'),
-                field = d.getElementById('peiodInputPrototype'),
-                butAdd = d.getElementById('addPeriod');
-            var count = 1;
-            butAdd.addEventListener('click', addFields, false);
-        </script>
-
-        <script>
-
-   google.load("visualization", "1", {packages:["corechart"]});
-   google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var CategoryIntrudersData = google.visualization.arrayToDataTable([
-                ['Категория пользователя', 'Количество угроз'],
-                @foreach (KeyValuePair<String,int> item in ViewBag.categories)
-                {<text>['@item.Key', @item.Value],</text>
-                }]);
-            var CategoryIntrudersOptions = {
-                title: 'Количество угроз от категорий пользователей',
-                hAxis: { title: 'Категория' },
-                vAxis: { title: 'Количество угроз' }
-            };
-               var CategoryIntrudersChart = new google.visualization.ColumnChart(document.getElementById('CategoryIntrudersChart'));
-                    CategoryIntrudersChart.draw(CategoryIntrudersData, CategoryIntrudersOptions);
-               var DamageToAssetsData = google.visualization.arrayToDataTable([
-                ['Информационный актив', 'Количество атак'],
-                @foreach (KeyValuePair<String,int> item in ViewBag.risks)
-                {<text>['@item.Key', @item.Value],</text>
-                }]);
-
-                var DamageToAssetsOptions = {
-             title: 'Количество угроз к информационному активу',
-             is3D: true,
-             pieResidueSliceLabel: 'Остальное'
-            };
-                    var DamageToAssetsChart = new google.visualization.PieChart(document.getElementById('DamageToAssetsChart'));
-                    DamageToAssetsChart.draw(DamageToAssetsData, DamageToAssetsOptions);
-
-            var InformationActiveInvestmentsData = google.visualization.arrayToDataTable([
-                ['Информационный актив', 'Стоимость', 'Затраты'],
-                @foreach (KeyValuePair<InformationAssets,long> item in ViewBag.infActivsInvestments)
-                {<text>['@item.Key.name',@item.Key.cost, @item.Value],</text>
-                }]);
-
-            var InformationActiveInvestmentsOptions = {
-             title: 'Стоимость и инвестиции в информационные активы',
-             hAxis: { title: 'Информационный актив' },
-             vAxis: { title: 'Стоимость/Затраты' }
-            };
-            var InformationActiveInvestmentsChart = new google.visualization.ColumnChart(document.getElementById('InformationActiveInvestments'));
-                InformationActiveInvestmentsChart.draw(InformationActiveInvestmentsData, InformationActiveInvestmentsOptions);
-           }
-        </script>
-        </p>
-           
-        </div>
+        </table>
+        <div>Calculate start</div>
+    }
+</div>
 

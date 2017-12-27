@@ -10,7 +10,7 @@ namespace EvaluationOfEffectivenessModul.Services.Models
     {
         BT,
         PIDm,
-        RrD,
+        KrD,
         KT,
         StO,
         Ol,
@@ -21,20 +21,22 @@ namespace EvaluationOfEffectivenessModul.Services.Models
     {
         public TypeIA type { get; set; }
         public long cost { get; set; }
+        public long investment { get; set; }
         public bool aConfidentiality { get; set; }
         public bool aAvailability { get; set; }
         public bool aAuthenticity { get; set; }
         public bool aIntegrity { get; set; }
         public bool continuity { get; set; }
+        public IList<InformationRisk> risks { get; set; }
 
         public InformationAssets(String name):base(TypeEntity.InformationAssets,name)
         {
         }
-        public InformationAssets(TypeIA t, String name, long cost, bool aConfidentiality,
+        public InformationAssets(TypeIA t, String name, bool aConfidentiality,
                                 bool aAvailability, bool aAuthenticity,
                                 bool aIntegrity, bool continuity) : base(TypeEntity.InformationAssets,name)
         {
-            this.cost = cost;
+            this.cost = 0;
             this.type = t;
             this.aConfidentiality = aConfidentiality;
             this.aAvailability = aAvailability;

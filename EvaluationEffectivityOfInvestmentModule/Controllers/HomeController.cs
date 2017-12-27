@@ -12,96 +12,69 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
 {
     public class HomeController : Controller
     {
+        Collection<InformationAssets> assets;
+        Collection<InformationRisk> risks;
+        Collection<Intruder> intruders;
         public ActionResult Index()
         {
-            Collection<Intruder> intruders = feelDate();
-            
-            System.Collections.Generic.Dictionary<String, int> category = new DictionaryWithJsonToString<string, int>("Категория пользователя","Количество угроз");
-            System.Collections.Generic.Dictionary<String, int> informationRisks = new Dictionary<string, int>();
-            System.Collections.Generic.Dictionary<InformationAssets, long> infActivsInvestments = new Dictionary<InformationAssets, long>();
-
-
-            addDate(intruders,category, informationRisks, infActivsInvestments);
-
-            ViewBag.intruders = intruders;
-            ViewBag.categories = category;
-            ViewBag.risks = informationRisks;
-            ViewBag.infActivsInvestments = infActivsInvestments;
+            feelDate();
+            ViewBag.assets = assets;
+            ViewBag.risks = risks;
+            if (Request.QueryString["calculate"] != null) addAnalyticDate();
             return View();
         }
-        private void addAnalyticDate(Collection<Intruder> intruders)
+        private void addAnalyticDate()
         {
+            long cost, investment;
+            long profit;
+            long.TryParse(Request.QueryString["profit"], out profit);
+            long.TryParse(Request.QueryString["remedies"], out cost);
+            long.TryParse(Request.QueryString["investments"], out investment);
 
+            long allCost = profit * cost / 100;
+            long allInvestment = allCost * investment / 100;
+            Int32 percent = 0;
+            foreach (InformationAssets asset in assets)
+            {
+                Int32.TryParse(Request.QueryString["cost_" + asset.type], out percent);
+                asset.cost = percent * allCost;
+                asset.investment = percent * allInvestment;
+            }
         }
         private void addDate(Collection<Intruder> intruders, Dictionary<string, int> category, Dictionary<string, int> informationRisks, Dictionary<InformationAssets, long> infActivsInvestments)
         {
-            foreach (Intruder item in intruders)
-            {
-                if (category.ContainsKey(item.uid.ToString()))
-                {
-                    int count = category[item.uid.ToString()];
-                    category[item.uid.ToString()] = count + 1;
-                }
-                else
-                {
-                    category.Add(item.uid.ToString(), 1);
-                }
-                foreach (InformationRisk risks in item.risk)
-                {
-                    if (informationRisks.ContainsKey(risks.asset.name))
-                    {
-                        int count = informationRisks[risks.asset.name];
-                        informationRisks[risks.asset.name] = count + 1;
-                    }
-                    else
-                    {
-                        informationRisks.Add(risks.asset.name, 1);
-                    }
-                    if (infActivsInvestments.ContainsKey(risks.asset))
-                    {
-                        long count = infActivsInvestments[risks.asset];
-                        infActivsInvestments[risks.asset] = count + risks.capitalOfExploitation;
-                    }
-                    else
-                    {
-                        infActivsInvestments.Add(risks.asset, risks.capitalOfExploitation);
-                    }
-                }
-            }
+            
         }
 
         /// <summary>
         /// Need correct this method. Use externals API
         /// </summary>
         /// <returns></returns>
-        private Collection<Intruder> feelDate()
+        private void feelDate()
         {
-            InformationAssets infAssets = new InformationAssets(TypeIA.BT, "Банковская тайна",48854, true, true, false, true, false);
-            InformationRisk risk1 = new InformationRisk("Нарушение целосности", infAssets, new Collection<Damage>{
-                                                                     new Damage(0.5f,0.4f,10002),
-                                                                     new Damage(0.516f,0.3f,10002),
-                                                                     new Damage(0.3f,0.3f,102132) }, 4325, 0.5f);
-            InformationRisk risk2 = new InformationRisk("Нарушение аутентичности", infAssets, new Collection<Damage>{
-                                                                     new Damage(0.5f,0.4f,10002),
-                                                                     new Damage(0.516f,0.3f,10002),
-                                                                     new Damage(0.3f,0.3f,102132) }, 222, 0.6f);
-            InformationRisk risk3 = new InformationRisk("Нарушение безопасности", infAssets, new Collection<Damage>{
-                                                                     new Damage(0.5f,0.4f,10002),
-                                                                     new Damage(0.516f,0.3f,10002),
-                                                                     new Damage(0.3f,0.3f,102132) }, 113, 0.1f);
-            InformationAssets infAssets2 = new InformationAssets(TypeIA.BT, "Конфиденциальная информация", 15625, true, true, false, true, false);
-            InformationRisk risk4 = new InformationRisk("Нарушение целосности", infAssets2, new Collection<Damage>{
-                                                                     new Damage(0.5f,0.4f,10002),
-                                                                     new Damage(0.516f,0.3f,10002),
-                                                                     new Damage(0.3f,0.3f,102132) }, 124, 0.5f);
-            InformationRisk risk5 = new InformationRisk("Нарушение аутентичности", infAssets2, new Collection<Damage>{
-                                                                     new Damage(0.5f,0.4f,10002),
-                                                                     new Damage(0.516f,0.3f,10002),
-                                                                     new Damage(0.3f,0.3f,102132) }, 1244, 0.5f);
-            InformationRisk risk6 = new InformationRisk("Нарушение безопасности", infAssets2, new Collection<Damage>{
-                                                                     new Damage(0.5f,0.4f,10002),
-                                                                     new Damage(0.516f,0.3f,10002),
-                                                                     new Damage(0.3f,0.3f,102132) }, 4325, 0.3f);
+            assets = new Collection<InformationAssets>
+            {
+                new InformationAssets(TypeIA.BT, "Банковская тайна", true, true, false, true, false),
+                new InformationAssets(TypeIA.KT, "Комерческая тайна", true, true, false, true, false),
+                new InformationAssets(TypeIA.Ol, "Общедоступная информация", true, true, false, true, false),
+                new InformationAssets(TypeIA.PD, "Персональные данные", true, true, false, true, false),
+                new InformationAssets(TypeIA.PIDm, "Платежные документы,", true, true, false, true, false),
+                new InformationAssets(TypeIA.KrD, "Кредитные документы", true, true, false, true, false),
+                new InformationAssets(TypeIA.StO, "Статические отчеты", true, true, false, true, false),
+                new InformationAssets(TypeIA.YI, "Управляющая информация", true, true, false, true, false)
+            };
+            InformationRisk risk1 = new InformationRisk("02.03.01.05", 0.268f, 0.268f, 0.268f, 0.268f, 0.241f, 0.153f, 0.241f, 0.268f);
+            InformationRisk risk2 = new InformationRisk("03.03.03.04", 0.332f, 0.332f, 0.332f, 0.332f, 0.166f, 0.066f, 0.166f, 0.332f);
+            InformationRisk risk3 = new InformationRisk("03.03.02.03", 0.332f, 0.332f, 0.332f, 0.332f, 0.249f, 0.166f, 0.249f, 0.332f);
+
+            risk1.active = true;
+            risk2.active = true;
+            risk3.active = true;
+
+            risks = new Collection<InformationRisk>
+            {
+                risk1,risk2,risk3
+            };
 
 
             Collection<NetworkObject> netObjects = new Collection<NetworkObject>
@@ -114,7 +87,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
                 new NetworkObject(LevelHierarchy.BL, "TO6")
             };
 
-            Collection<Intruder> intruders = new Collection<Intruder>
+            intruders = new Collection<Intruder>
             {
                 new Intruder(Category.trusted,new Collection<InformationRisk>{risk1,risk2,risk3},1154,
                                                                      new Dictionary<String, float>{
@@ -122,20 +95,19 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
                                                                          {"Рекомендация 2",0.2f },
                                                                          {"Рекомендация 3",0.5f },
                                                                      }),
-                new Intruder(Category.untrusted, new Collection<InformationRisk>{risk2,risk4,risk5,risk3},1512,
+                new Intruder(Category.untrusted, new Collection<InformationRisk>{risk2,risk3},1512,
                                                                      new Dictionary<String, float>{
                                                                          {"Рекомендация 4",0.1f },
                                                                          {"Рекомендация 5",0.2f },
                                                                          {"Рекомендация 6",0.5f },
                                                                      }),
-                new Intruder(Category.trusted, new Collection<InformationRisk>{risk5,risk6},784,
+                new Intruder(Category.trusted, new Collection<InformationRisk>{risk3},784,
                                                                      new Dictionary<String, float>{
                                                                          {"Рекомендация 7",0.1f },
                                                                          {"Рекомендация 8",0.2f },
                                                                          {"Рекомендация 9",0.5f },
                                                                      }),
             };
-            return intruders;
         }
     }
 }

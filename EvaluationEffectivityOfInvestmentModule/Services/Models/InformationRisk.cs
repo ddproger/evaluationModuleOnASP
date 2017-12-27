@@ -8,28 +8,40 @@ namespace EvaluationOfEffectivenessModul.Services.Models
 {
     public class InformationRisk
     {
-        private string pName;
-        public string name
-        {
-            get
-            {
-                return pName + " на " + asset.name;
-            }
-            
-        }
+        public string name { get; set; }
         public long capitalOfExploitation { get; set; }
         public float significance { get; set; }
-        public InformationAssets asset { get; set; }
-        public ICollection<Damage> damages { get; set; }
+        public Boolean active { get; set; }
+        public float possibilityBT { get; set; }
+        public float possibilityPIDm { get; set; }
+        public float possibilityKrD { get; set; }
+        public float possibilityKT { get; set; }
+        public float possibilityStO { get; set; }
+        public float possibilityOl { get; set; }
+        public float possibilityYI { get; set; }
+        public float possibilityPD { get; set; }
 
         public InformationRisk() { }
-        public InformationRisk(string n, InformationAssets asset, ICollection<Damage> damages , long capital, float s)
+        public InformationRisk(string name,
+            float possibilityBT, 
+            float possibilityPIDm, 
+            float possibilityKrD, 
+            float possibilityKT, 
+            float possibilityStO, 
+            float possibilityOl, 
+            float possibilityYI, 
+            float possibilityPD)
         {
-            this.pName = n;
-            this.asset = asset;
-            this.damages = damages;
-            this.capitalOfExploitation = capital;
-            this.significance = s;
+            this.name = name;
+            capitalOfExploitation = 0;
+            this.possibilityBT = possibilityBT;
+            this.possibilityPIDm = possibilityPIDm;
+            this.possibilityKrD = possibilityKrD;
+            this.possibilityKT = possibilityKT;
+            this.possibilityStO = possibilityStO;
+            this.possibilityOl = possibilityOl;
+            this.possibilityYI = possibilityYI;
+            this.possibilityPD = possibilityPD;
         }
     }
 }

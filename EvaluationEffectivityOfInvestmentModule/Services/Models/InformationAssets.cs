@@ -27,6 +27,25 @@ namespace EvaluationOfEffectivenessModul.Services.Models
         public bool aAuthenticity { get; set; }
         public bool aIntegrity { get; set; }
         public bool continuity { get; set; }
+        public long ALE { get; set; }
+        public long OU { get; set; }
+        public long M { get
+            {
+                return NPVbzi;
+            }
+        }
+        public long NPVbzi { get; set; }
+        public long NPVszi { get; set; }
+        public long ROSI {
+            get{
+                return NPVszi - NPVbzi;
+            }
+        }
+        public long Wc { get { return (long)(M * 0.4); } }
+        public long Wi { get { return (long)(M * 0.3); } }
+        public long Wa { get { return (long)(M * 0.2); } }
+        public long Wau { get { return (long)(M * 0.1); } }
+
         public IList<InformationRisk> risks { get; set; }
 
         public InformationAssets(String name):base(TypeEntity.InformationAssets,name)

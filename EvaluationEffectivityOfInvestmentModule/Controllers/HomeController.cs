@@ -34,12 +34,26 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
             long allCost = profit * cost / 100;
             long allInvestment = allCost * investment / 100;
             Int32 percent = 0;
+            int r = 0;
+            Int32.TryParse(Request.QueryString["r"], out r);
+            r++;
+            int r1 = r, r2 = r1 * r, r3 = r2 * r, r4 = r3 * r;
+
             foreach (InformationAssets asset in assets)
             {
                 Int32.TryParse(Request.QueryString["cost_" + asset.type], out percent);
                 asset.cost = percent * allCost;
                 asset.investment = percent * allInvestment;
+                asset.ALE = 4 * asset.cost / (r1+r2+r3+r4);
+                asset.NPVbzi = (long)(profit * 0.25 * percent);
+                asset.NPVszi = (long)(profit * 0.05 * percent + asset.cost);
+                
+                foreach (InformationRisk risk in risks)
+                {
+                    asset.OU += (long)(asset.cost * risk.getPossibility(asset.type));
+                }
             }
+
         }
         private void addDate(Collection<Intruder> intruders, Dictionary<string, int> category, Dictionary<string, int> informationRisks, Dictionary<InformationAssets, long> infActivsInvestments)
         {
@@ -58,7 +72,7 @@ namespace EvaluationEffectivityOfInvestmentModule.Controllers
                 new InformationAssets(TypeIA.KT, "Комерческая тайна", true, true, false, true, false),
                 new InformationAssets(TypeIA.Ol, "Общедоступная информация", true, true, false, true, false),
                 new InformationAssets(TypeIA.PD, "Персональные данные", true, true, false, true, false),
-                new InformationAssets(TypeIA.PIDm, "Платежные документы,", true, true, false, true, false),
+                new InformationAssets(TypeIA.PIDm, "Платежные документы", true, true, false, true, false),
                 new InformationAssets(TypeIA.KrD, "Кредитные документы", true, true, false, true, false),
                 new InformationAssets(TypeIA.StO, "Статические отчеты", true, true, false, true, false),
                 new InformationAssets(TypeIA.YI, "Управляющая информация", true, true, false, true, false)

@@ -46,6 +46,56 @@
                 </tr>
             }
         </table>
+
+        <table>
+            <tr>
+                <th>Актив</th>
+                <th>Czs</th>
+                <th>ALE</th>
+                <th>NPVzbtzi</th>
+                <th>NPVzvtzi</th>
+                <th>ROSI</th>
+            </tr>
+
+            @foreach (InformationAssets asset in ViewBag.assets)
+            {
+            <tr>
+                <td>@asset.name</td>
+                <td>@asset.cost</td>
+                <td>@asset.ALE</td>
+                <td>@asset.NPVbzi</td>
+                <td>@asset.NPVszi</td>
+                <td>@asset.ROSI</td>
+            </tr>
+            }
+        </table>
+
+        <table>
+            <tr>
+                <th>Актив</th>
+                <th>OU</th>
+                <th>M</th>
+                <th>Wc</th>
+                <th>Wi</th>
+                <th>Wa</th>
+                <th>Wau</th>
+            </tr>
+
+            @foreach (InformationAssets asset in ViewBag.assets)
+            {
+            <tr>
+                <td>@asset.name</td>
+                <td>@asset.OU</td>
+                <td>@asset.M</td>
+                <td>@asset.Wc</td>
+                <td>@asset.Wi</td>
+                <td>@asset.Wa</td>
+                <td>@asset.Wau</td>
+            </tr>
+            }
+        </table>
+
+
         <div>Calculate start</div>
     }
 </div>
